@@ -84,6 +84,8 @@ app.get('/example4', (req, res)=>{
     res.render('pages/home.ejs', { name: "Kunal", email: "kunalarayu@gnoidef.com"});
 })
 
+
+
 app.get("/example5", (req, res) => {
     res.format({
     "text/plain": () => {
@@ -100,3 +102,31 @@ app.get("/example5", (req, res) => {
     }
     }); 
     });
+
+const middleware1 = (req, res, next) => {
+    console.log("Middleware 1");
+    next();
+};
+const middleware2 = (req, res, next) => {
+    console.log("Middleware 2");
+    res.send("Response from middleware 2");
+    next();
+};
+const middleware3 = (req, res, next) => {
+    console.log("Middleware 3");
+    next();
+    };
+const middleware4 = (req, res, next) => {
+    console.log("Middleware 4");
+    next();
+};
+app.use(middleware1);
+app.use(middleware2);
+app.use(middleware3);
+app.use(middleware4);
+
+
+
+app.get("/users", (req, res)=>{
+    res.send('user list');
+});
