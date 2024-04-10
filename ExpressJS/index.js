@@ -14,9 +14,34 @@ app.get("/example", (req, res, next) => {
 app.get("/users", (req, res)=>{
     res.send('user list');
 });
-app.get("/users/:id", (req, res) => {
-   console.log(req.params);
-   res.send('user details');
+app.get("/users/:UserId", (req, res) => {
+   let { UserId } = req.params;
+   console.log(req.query);
+   console.log(UserId);
+   res.send('user ' + UserId +' details');
+});
+
+const admin = express. Router();
+const student = express. Router();
+app.use("/admin", admin);
+app.use("/student", student);
+admin.get("/home", (req, res, nex) => {
+    console.log(req.baseUrl);
+    console.log(req.originalUrl);
+    console.log(req.path);
+    res.send("Admin home route");
+});
+student.get("/home", (req, res, next) => {
+    console.log(req.baseUrl);
+    console.log(req.originalUrl);
+    console.log(req.path);
+    res.send("Student home route");
+});
+app.get("/home", (req, res, next) => {
+    console.log(req.baseUrl);
+    console.log(req.originalUrl);
+    console.log(req.path);
+    res.send("Common home route");
 });
 // app.post("/example", (req, res, next) => {
 //     res.send("This is post method");
