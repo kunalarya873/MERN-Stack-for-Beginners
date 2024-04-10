@@ -1,6 +1,8 @@
 const express = require("express");
 
+const cookieParser = require('cookie-parser');
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.get("/", (req, res) => {
     res.send("This is home page");
@@ -55,6 +57,24 @@ app.get("/home", (req, res, next) => {
 // app.delete("/example", (req, res, next) => {
 //     res.send("This is delete method");
 // });
+app.get("/example2", (req, res) => {
+    const { email } = req.cookies;
+    res.cookie( "email","test@gmail.com");
+    res.cookie('name', 'test');
+    console.log(email);
+    res.send("Example route");
+    //You can clear cookie by method clearCookie('name');
+
+});
+
+// redirect
+app.get("/test1", (req, res) => {
+    res.set('title', 'test');
+    res.send("Test response");
+    });
+app.get("/example3", (req, res) => {
+    res.redirect("/test1");
+    });
 app.listen(8000, () => {
     console.log("Server is running on port 8000");
 });
