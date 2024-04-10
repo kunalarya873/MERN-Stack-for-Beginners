@@ -73,8 +73,30 @@ app.get("/test1", (req, res) => {
     res.send("Test response");
     });
 app.get("/example3", (req, res) => {
+
     res.redirect("/test1");
     });
 app.listen(8000, () => {
     console.log("Server is running on port 8000");
 });
+
+app.get('/example4', (req, res)=>{
+    res.render('pages/home.ejs', { name: "Kunal", email: "kunalarayu@gnoidef.com"});
+})
+
+app.get("/example5", (req, res) => {
+    res.format({
+    "text/plain": () => {
+    res.send("Plain text response");
+    },
+    "application/json": () =>{
+    res.json({name: "Jahid", email: "jahid@xxyz.com"})
+    },
+    "text/html": () => {
+    res.render("pages/home.ejs");
+    },
+    default: () => {
+    res.send("Nothing matched")
+    }
+    }); 
+    });
