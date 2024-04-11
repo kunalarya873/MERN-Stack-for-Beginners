@@ -7,7 +7,8 @@ const client = new mongodb.MongoClient(connectionUrl);
 const app = express();
 app.use(express.json());
 
-client.connect()
+client
+    .connect()
     .then(() => {
         console.log("Database connection established");
         

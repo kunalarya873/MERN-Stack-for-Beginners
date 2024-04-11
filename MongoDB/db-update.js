@@ -1,4 +1,4 @@
-Db.inventory.insertMany([
+db.inventory.insertMany([
     {
       item: 'canvas',
       qty: 100,
