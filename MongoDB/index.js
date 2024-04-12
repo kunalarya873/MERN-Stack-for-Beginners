@@ -1,8 +1,11 @@
 const express = require('express');
 const mongodb = require('mongodb');
 
-const connectionUrl = "mongodb://127.0.0.1/"; // Replace "mydatabase" with your actual database name
+const connectionUrl = "mongodb://localhost:27017/"; // Replace "mydatabase" with your actual database name
 const client = new mongodb.MongoClient(connectionUrl);
+
+const db = client.db("schoolDb");
+const student = db.collection("student");
 
 const app = express();
 app.use(express.json());
@@ -13,12 +16,22 @@ client
         console.log("Database connection established");
         
         // Start the Express server
-        app.listen(8000, () => {
-            console.log("Server is running at port 8000");
-        });
     })
     .catch(error => console.log(error));
 
+app.post("/student", (req, res, next)=>{
+    student.insertOne({
+        name: "Kunal",
+        class: "A",
+        dept: "mech",
+        day: "Mon",
+    })
+    .then(()=>res.status(201).send("Student added succesfully"))
+    .catch((error)=>res.status(500).send(error.message))
+});
+app.listen(8000, () => {
+    console.log("Server is running at port 8000");
+});
 app.get("/", (req, res) => {
     res.send("This is the home page. Hello!");
 });
