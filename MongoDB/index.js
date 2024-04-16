@@ -21,10 +21,10 @@ client
 
 app.post("/student", (req, res, next)=>{
     student.insertOne({
-        name: "Kunal",
+        name: "Arya",
         class: "A",
         dept: "mech",
-        day: "Mon",
+        day: "Tues",
     })
     .then(()=>res.status(201).send("Student added succesfully"))
     .catch((error)=>res.status(500).send(error.message))
