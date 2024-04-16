@@ -20,14 +20,20 @@ client
     .catch(error => console.log(error));
 
 app.post("/student", (req, res, next)=>{
-    student.insertOne({
-        name: "Arya",
-        class: "A",
-        dept: "mech",
-        day: "Tues",
+    // const {name, email, age, dept} = req.body
+    // student.insertOne({
+    //     name: name,
+    //     email: email,
+    //     dept: dept,
+    //     age: age,
+    // })
+    // .then(()=>res.status(201).send("Student added succesfully"))
+    // .catch((error)=>res.status(500).send(error.message))
+    student.insertMany(req.body).then(()=>{
+        res.status(201).send("Student adde successfully")
+    }).catch(()=>{
+        res.status(500).send(error.message)
     })
-    .then(()=>res.status(201).send("Student added succesfully"))
-    .catch((error)=>res.status(500).send(error.message))
 });
 app.listen(8000, () => {
     console.log("Server is running at port 8000");
