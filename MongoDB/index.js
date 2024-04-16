@@ -37,8 +37,25 @@ app.post("/student", (req, res, next)=>{
 });
 
 app.get("/student",(req, res, next) =>{
-    student.findOne({name: "studentA"}).then((data)=> res.status(200).json(data)).catch((error) => res.status(500).send(error.message))
+    const query = req.query; 
+    student.findOne(query).then((data)=> res.status(200).json(data)).catch((error) => res.status(500).send(error.message))
 } );
+//update student
+app.put("/student", (req, res, next)=>{
+    const {email} = req.query;
+    const {dept} = req.body;
+    student.findOneAndUpdate(
+        {email},
+        {$set: {dept:dept}},
+    {returnDocument: "after"})
+    .then((data)=>{
+        res.status(200).json({
+            message:"Student Updated successfully",
+            updatedStudent: data
+        });
+    })
+    .catch((error) => res.status(500).json(error.message))
+})
 app.listen(8000, () => {
     console.log("Server is running at port 8000");
 });
