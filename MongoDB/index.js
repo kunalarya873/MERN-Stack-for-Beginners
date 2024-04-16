@@ -35,6 +35,10 @@ app.post("/student", (req, res, next)=>{
         res.status(500).send(error.message)
     })
 });
+
+app.get("/student",(req, res, next) =>{
+    student.findOne({name: "studentA"}).then((data)=> res.status(200).json(data)).catch((error) => res.status(500).send(error.message))
+} );
 app.listen(8000, () => {
     console.log("Server is running at port 8000");
 });
